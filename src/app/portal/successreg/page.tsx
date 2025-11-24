@@ -1,0 +1,25 @@
+import type { Metadata } from 'next'; // App Router uses Metadata for titles
+import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Verify Registration | Goodwill',
+};
+
+export default function EventsPage() {
+  // This is a Server Component, so no "use client" needed unless you add interactivity
+  return (
+    <main className="p-8">
+        <div>
+            <img src="null" alt="checkicon" />
+            <h1>LEmail Verified <br />Succesfully </h1>
+            <p>Thank you, your email has been succesfully verified. <br />You can now continue.</p>
+            <input type="alphanumeric" name='Verification Code' />
+            <button>
+                <Link href='/'>
+                    Continue
+                </Link>
+            </button>
+        </div>
+    </main>
+  );
+}
