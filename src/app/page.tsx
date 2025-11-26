@@ -1,10 +1,7 @@
 "use client";
 
-import { signIn, signOut } from "next-auth/react";
-import Link from "next/link";
-import Image from "next/image"; // Import Image for better performance (if used)
+import Image from "next/image"; 
 
-// The component itself is simplified to a client component
 export default function HomePage() {
   return (
     <main className="flex flex-col items-center bg-gray-50/0">
@@ -75,39 +72,36 @@ export default function HomePage() {
                     />
                 </div>
             </div>
-        {/* ==================================================================== */}
-        {/* 4. PRIZES SECTION */}
-        {/* ==================================================================== */}
         <div className="w-full max-w-4xl pt-12 pb-8">
-          <h2 className="text-5xl font-bold text-gray-800 text-center mb-10">
+          <h2 className="text-4xl font-bold text-gray-800 text-center mb-10">
             PRIZES
           </h2>
           
           {/* Prize Grid: 3 columns on medium screens and up, stacking on small screens */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">  
             {/* 1st Prize */}
-            <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 rounded-lg bg-gray-100 shadow-lg">
+            <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 bg-gray-100 shadow-lg">
                 {/* Placeholder for actual trophy image */}
-                <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold rounded-t-lg">
-                    [Image: 1st Trophy]
+                <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold">
+                    <img src="./assets/graphics/t1.png" alt="null"/>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white py-4 w-full">R150 000</h3>
             </div>
             
             {/* 2nd Prize */}
-            <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 rounded-lg bg-gray-100 shadow-lg">
+            <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 bg-gray-100 shadow-lg">
                 {/* Placeholder for actual trophy image */}
-                <div className="h-32 w-full bg-green-500/30 flex items-center justify-center text-green-800 font-semibold rounded-t-lg">
-                    [Image: 2nd Trophy]
+                <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold">
+                    <img src="./assets/graphics/t2.png" alt="null"/>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white py-4 w-full">R30 000</h3>
             </div>
             
             {/* 3rd Prize */}
-            <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 rounded-lg bg-gray-100 shadow-lg">
+            <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 bg-gray-100 shadow-lg">
                  {/* Placeholder for actual trophy image */}
-                 <div className="h-32 w-full bg-green-500/30 flex items-center justify-center text-green-800 font-semibold rounded-t-lg">
-                    [Image: 3rd Trophy]
+                 <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold">
+                    <img src="./assets/graphics/t3.png" alt="null"/>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white py-4 w-full">R5 000</h3>
             </div>
