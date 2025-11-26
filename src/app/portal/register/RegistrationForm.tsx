@@ -1,5 +1,3 @@
-// src/app/(auth)/register/RegistrationForm.tsx
-
 'use client'; 
 
 import Link from 'next/link';
@@ -13,7 +11,7 @@ const EyeIcon = ({ onClick }: { onClick: () => void }) => (
     <button 
         type="button" 
         onClick={onClick} 
-        className="absolute inset-y-0 right-0 pr-3 flex items-center text-white"
+        className="absolute inset-y-0 right-0 pr-3 flex items-center text-white h-10 mt-8"
         aria-label="Toggle Password Visibility"
     >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -32,32 +30,15 @@ export const RegistrationForm: React.FC = () => {
     };
 
     return (
-        // Main container for the form, styled as a full-height card
         <div 
             className="w-full max-w-md mx-auto min-h-screen md:min-h-0 md:h-auto md:rounded-lg shadow-2xl overflow-hidden" 
             style={{ backgroundColor: primaryGreen }}
         >
             
-            {/* Top Bar with Home Icon */}
-            <div className="relative w-full h-16 md:h-12" style={{ backgroundColor: primaryGreen }}>
-                <a 
-                    href="/portal" 
-                    className="absolute right-4 top-4 rounded-full p-2 text-white transition hover:bg-white/10"
-                    aria-label="Go to Portal Home"
-                >
-                    {/* Home Icon SVG (Yellow fill to match design) */}
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#FFC400" viewBox="0 0 24 24" strokeWidth={2} stroke="#FFC400" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.954c.407-.407 1.069-.407 1.476 0l8.954 8.954M17.25 18V9.5a.75.75 0 00-.75-.75H7.5a.75.75 0 00-.75.75V18a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5z" />
-                    </svg>
-                </a>
-            </div>
-            
-            {/* Form Content Area */}
             <div className="p-8 sm:p-10 flex flex-col items-center space-y-4">
                 <h1 className="text-3xl font-bold text-white mb-6">Registration</h1>
 
                 <form className="w-full space-y-6">
-                    {/* Helper function to generate input groups */}
                     {['Full Name', 'Date of Birth', 'ID Number', 'Team Name'].map((label, index) => (
                         <div key={index}>
                             <label htmlFor={label.toLowerCase().replace(/\s/g, '-')} className="text-white text-sm font-semibold block mb-1">
@@ -67,7 +48,7 @@ export const RegistrationForm: React.FC = () => {
                                 type={label === 'Date of Birth' ? 'date' : (label === 'ID Number' ? 'number' : 'text')}
                                 id={label.toLowerCase().replace(/\s/g, '-')}
                                 required
-                                className="w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
+                                className="w-full rounded-md border-white border-1 px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                             />
                         </div>
                     ))}
@@ -82,14 +63,13 @@ export const RegistrationForm: React.FC = () => {
                                 id="role-select"
                                 required
                                 defaultValue="Select Role"
-                                className="w-full appearance-none rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
+                                className="w-full appearance-none rounded-md border-0 bg-white px-4 py-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                             >
                                 <option disabled>Select Role</option>
                                 <option value="Player">Player</option>
-                                <option value="Coach/Team Head">Coach/Team Head</option>
+                                <option value="Coach/Team Head">Coach</option>
                                 <option value="Admin">Admin</option>
                             </select>
-                            {/* Custom Down Arrow (for aesthetics, as browser styling is unreliable) */}
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
@@ -105,7 +85,7 @@ export const RegistrationForm: React.FC = () => {
                             type={passwordVisible ? 'text' : 'password'}
                             id="password"
                             required
-                            className="w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
+                            className="w-full rounded-md border-1 border-white px-4 py-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                         />
                         <EyeIcon onClick={togglePasswordVisibility} />
                     </div>
@@ -119,7 +99,7 @@ export const RegistrationForm: React.FC = () => {
                             type={passwordVisible ? 'text' : 'password'}
                             id="confirm-password"
                             required
-                            className="w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
+                            className="w-full rounded-md border-1 border-white px-4 py-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                         />
                         <EyeIcon onClick={togglePasswordVisibility} />
                     </div>
@@ -127,14 +107,14 @@ export const RegistrationForm: React.FC = () => {
                     {/* Register Button */}
                     <button
                         type="submit"
-                        className="w-full mt-4 rounded-md bg-white py-3 text-lg font-semibold text-gray-800 shadow-sm transition hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+                        className="w-full mt-4 rounded-md bg-white py-3 text-lg font-semibold text-gray-800 shadow-sm transition hover:bg-[#ffd52c] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
                     >
                         Register
                     </button>
                     
                     {/* Login link */}
                     <p className="text-center text-sm pt-2">
-                        <Link href="/login" className="text-white hover:text-yellow-400 transition">
+                        <Link href="/portal/login" className="text-white hover:text-yellow-400 transition">
                             Already have an account? Log In
                         </Link>
                     </p>

@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
     return (
-        // Center the form card in the viewport
         <main className="flex min-h-screen items-center justify-center bg-gray-100 p-4 sm:p-6">
             <RoleSelector />
         </main>

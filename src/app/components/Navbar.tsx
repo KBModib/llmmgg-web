@@ -20,14 +20,11 @@ const navLinks: NavLink[] = [
     { href: "/contact", label: "Contact" },
 ];
 
-// Assuming this component receives necessary props for session/auth logic
-// Replace 'any' with the actual prop types from next-auth if available
 export const Navbar: React.FC<{ status: string, loggedIn: boolean, signOut: () => void }> = ({ 
     status, 
     loggedIn, 
     signOut 
 }) => {
-    // Call the hook to get the current URL path
     const pathname = usePathname(); 
 
     return (
