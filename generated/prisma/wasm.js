@@ -93,12 +93,19 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  verificationToken: 'verificationToken',
+  verificationTokenExpires: 'verificationTokenExpires',
+  emailVerified: 'emailVerified',
+  dateOfBirth: 'dateOfBirth',
+  idNumber: 'idNumber',
+  image: 'image',
+  managedTeamId: 'managedTeamId'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -124,23 +131,122 @@ exports.Prisma.SessionScalarFieldEnum = {
   expires: 'expires'
 };
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  emailVerified: 'emailVerified',
-  image: 'image'
-};
-
 exports.Prisma.VerificationTokenScalarFieldEnum = {
   identifier: 'identifier',
   token: 'token',
   expires: 'expires'
 };
 
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  affiliationFeePaid: 'affiliationFeePaid',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PlayerProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jerseyNumber: 'jerseyNumber',
+  position: 'position',
+  isCaptain: 'isCaptain',
+  teamId: 'teamId'
+};
+
+exports.Prisma.TeamStatsScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  wins: 'wins',
+  losses: 'losses',
+  draws: 'draws',
+  points: 'points',
+  goalsFor: 'goalsFor',
+  goalsAgainst: 'goalsAgainst',
+  goalDifference: 'goalDifference',
+  lastUpdated: 'lastUpdated'
+};
+
+exports.Prisma.PlayerStatsScalarFieldEnum = {
+  id: 'id',
+  playerId: 'playerId',
+  goals: 'goals',
+  assists: 'assists',
+  yellowCards: 'yellowCards',
+  redCards: 'redCards',
+  matchesPlayed: 'matchesPlayed',
+  lastUpdated: 'lastUpdated'
+};
+
+exports.Prisma.FixtureScalarFieldEnum = {
+  id: 'id',
+  scheduledTime: 'scheduledTime',
+  venue: 'venue',
+  status: 'status',
+  homeTeamId: 'homeTeamId',
+  awayTeamId: 'awayTeamId',
+  homeScore: 'homeScore',
+  awayScore: 'awayScore',
+  tournamentId: 'tournamentId'
+};
+
+exports.Prisma.MatchFormationScalarFieldEnum = {
+  id: 'id',
+  fixtureId: 'fixtureId',
+  formationDetails: 'formationDetails',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MatchLogScalarFieldEnum = {
+  id: 'id',
+  fixtureId: 'fixtureId',
+  logEntry: 'logEntry',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MatchPlayerLogScalarFieldEnum = {
+  id: 'id',
+  logId: 'logId',
+  playerId: 'playerId',
+  eventType: 'eventType',
+  minute: 'minute',
+  goalScorerId: 'goalScorerId',
+  assistPlayerId: 'assistPlayerId'
+};
+
+exports.Prisma.TournamentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdminLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  targetId: 'targetId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TournamentStatScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value',
+  lastUpdated: 'lastUpdated'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -153,13 +259,51 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  COACH: 'COACH',
+  PLAYER: 'PLAYER'
+};
+
+exports.MatchStatus = exports.$Enums.MatchStatus = {
+  SCHEDULED: 'SCHEDULED',
+  LIVE: 'LIVE',
+  COMPLETED: 'COMPLETED',
+  POSTPONED: 'POSTPONED',
+  CANCELED: 'CANCELED'
+};
+
+exports.LogType = exports.$Enums.LogType = {
+  GOAL: 'GOAL',
+  ASSIST: 'ASSIST',
+  YELLOW_CARD: 'YELLOW_CARD',
+  RED_CARD: 'RED_CARD',
+  SUBSTITUTION_IN: 'SUBSTITUTION_IN',
+  SUBSTITUTION_OUT: 'SUBSTITUTION_OUT',
+  COMMENTARY: 'COMMENTARY'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
+  User: 'User',
   Account: 'Account',
   Session: 'Session',
-  User: 'User',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Team: 'Team',
+  PlayerProfile: 'PlayerProfile',
+  TeamStats: 'TeamStats',
+  PlayerStats: 'PlayerStats',
+  Fixture: 'Fixture',
+  MatchFormation: 'MatchFormation',
+  MatchLog: 'MatchLog',
+  MatchPlayerLog: 'MatchPlayerLog',
+  Tournament: 'Tournament',
+  AdminLog: 'AdminLog',
+  TournamentStat: 'TournamentStat'
 };
 /**
  * Create the Client
@@ -200,7 +344,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -209,13 +352,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  createdBy   User   @relation(fields: [createdById], references: [id])\n  createdById String\n\n  @@index([name])\n}\n\n// Necessary for Next auth\nmodel Account {\n  id                       String  @id @default(cuid())\n  userId                   String\n  type                     String\n  provider                 String\n  providerAccountId        String\n  refresh_token            String? // @db.Text\n  access_token             String? // @db.Text\n  expires_at               Int?\n  token_type               String?\n  scope                    String?\n  id_token                 String? // @db.Text\n  session_state            String?\n  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  refresh_token_expires_in Int?\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String?\n  email         String?   @unique\n  emailVerified DateTime?\n  image         String?\n  accounts      Account[]\n  sessions      Session[]\n  posts         Post[]\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n",
-  "inlineSchemaHash": "dd9a6edd7dcf3768e8fd246695361ce51823871115a517c30ff53e4d5bffa20b",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\n//\n// ENUMS\n//\nenum UserRole {\n  ADMIN\n  COACH\n  PLAYER\n}\n\nenum MatchStatus {\n  SCHEDULED\n  LIVE\n  COMPLETED\n  POSTPONED\n  CANCELED\n}\n\nenum LogType {\n  GOAL\n  ASSIST\n  YELLOW_CARD\n  RED_CARD\n  SUBSTITUTION_IN\n  SUBSTITUTION_OUT\n  COMMENTARY\n}\n\n//\n// USER & AUTH\n//\nmodel User {\n  id       String   @id @default(cuid())\n  name     String?\n  email    String   @unique\n  password String\n  role     UserRole @default(PLAYER)\n\n  verificationToken        String?\n  verificationTokenExpires DateTime?\n  emailVerified            DateTime?\n\n  dateOfBirth DateTime?\n  idNumber    String?   @unique\n  image       String?\n\n  accounts Account[]\n  sessions Session[]\n\n  managedTeam   Team?   @relation(\"CoachTeam\", fields: [managedTeamId], references: [id])\n  managedTeamId String? @unique\n\n  playerProfile PlayerProfile?\n\n  adminLogs AdminLog[]\n}\n\nmodel Account {\n  id                       String  @id @default(cuid())\n  userId                   String\n  type                     String\n  provider                 String\n  providerAccountId        String\n  refresh_token            String?\n  access_token             String?\n  expires_at               Int?\n  token_type               String?\n  scope                    String?\n  id_token                 String?\n  session_state            String?\n  refresh_token_expires_in Int?\n  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n\n//\n// TEAM & PLAYER MODELS\n//\nmodel Team {\n  id                 String   @id @default(cuid())\n  name               String   @unique\n  affiliationFeePaid Boolean  @default(false)\n  createdAt          DateTime @default(now())\n\n  coach        User?           @relation(\"CoachTeam\")\n  players      PlayerProfile[]\n  homeFixtures Fixture[]       @relation(\"HomeTeam\")\n  awayFixtures Fixture[]       @relation(\"AwayTeam\")\n\n  teamStats TeamStats?\n}\n\nmodel PlayerProfile {\n  id     String @id @default(cuid())\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  jerseyNumber Int?\n  position     String?\n  isCaptain    Boolean @default(false)\n\n  teamId String\n  team   Team   @relation(fields: [teamId], references: [id])\n\n  matchLogs MatchPlayerLog[]\n\n  playerStats PlayerStats?\n\n  @@unique([teamId, jerseyNumber])\n  @@index([teamId])\n}\n\n//\n// TEAM & PLAYER CACHED STATS\n//\nmodel TeamStats {\n  id     String @id @default(cuid())\n  teamId String @unique\n  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)\n\n  wins           Int @default(0)\n  losses         Int @default(0)\n  draws          Int @default(0)\n  points         Int @default(0)\n  goalsFor       Int @default(0)\n  goalsAgainst   Int @default(0)\n  goalDifference Int @default(0)\n\n  lastUpdated DateTime @updatedAt\n}\n\nmodel PlayerStats {\n  id       String        @id @default(cuid())\n  playerId String        @unique\n  player   PlayerProfile @relation(fields: [playerId], references: [id], onDelete: Cascade)\n\n  goals         Int @default(0)\n  assists       Int @default(0)\n  yellowCards   Int @default(0)\n  redCards      Int @default(0)\n  matchesPlayed Int @default(0)\n\n  lastUpdated DateTime @updatedAt\n}\n\n//\n// FIXTURES & MATCH LOGGING\n//\nmodel Fixture {\n  id            String      @id @default(cuid())\n  scheduledTime DateTime\n  venue         String\n  status        MatchStatus @default(SCHEDULED)\n\n  homeTeamId String\n  homeTeam   Team   @relation(\"HomeTeam\", fields: [homeTeamId], references: [id])\n  awayTeamId String\n  awayTeam   Team   @relation(\"AwayTeam\", fields: [awayTeamId], references: [id])\n\n  homeScore Int?\n  awayScore Int?\n\n  matchLogs MatchLog[]\n  formation MatchFormation?\n\n  tournamentId String?\n  tournament   Tournament? @relation(fields: [tournamentId], references: [id])\n}\n\nmodel MatchFormation {\n  id        String  @id @default(cuid())\n  fixtureId String  @unique\n  fixture   Fixture @relation(fields: [fixtureId], references: [id], onDelete: Cascade)\n\n  formationDetails Json?\n  createdAt        DateTime @default(now())\n  updatedAt        DateTime @updatedAt\n}\n\nmodel MatchLog {\n  id        String  @id @default(cuid())\n  fixtureId String\n  fixture   Fixture @relation(fields: [fixtureId], references: [id], onDelete: Cascade)\n\n  logEntry  String   @db.Text\n  createdAt DateTime @default(now())\n\n  playerLogs MatchPlayerLog[]\n}\n\nmodel MatchPlayerLog {\n  id    String   @id @default(cuid())\n  logId String\n  log   MatchLog @relation(fields: [logId], references: [id])\n\n  playerId String\n  player   PlayerProfile @relation(fields: [playerId], references: [id])\n\n  eventType LogType\n  minute    Int?\n\n  goalScorerId   String?\n  assistPlayerId String?\n\n  @@index([logId])\n  @@index([playerId])\n}\n\n//\n// TOURNAMENT & ADMIN\n//\nmodel Tournament {\n  id        String   @id @default(cuid())\n  name      String   @unique\n  startDate DateTime\n  endDate   DateTime\n  status    String\n\n  fixtures Fixture[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel AdminLog {\n  id     String @id @default(cuid())\n  userId String\n  user   User   @relation(fields: [userId], references: [id])\n\n  action   String\n  targetId String?\n\n  createdAt DateTime @default(now())\n}\n\nmodel TournamentStat {\n  id          String   @id @default(cuid())\n  name        String   @unique\n  value       String\n  lastUpdated DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "223b5ea175b1ae895792f772b3eb0c3efd8df7b6983441964f9e76814096585b",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"refresh_token_expires_in\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"verificationToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"verificationTokenExpires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"dateOfBirth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"idNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"managedTeam\",\"kind\":\"object\",\"type\":\"Team\",\"relationName\":\"CoachTeam\"},{\"name\":\"managedTeamId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playerProfile\",\"kind\":\"object\",\"type\":\"PlayerProfile\",\"relationName\":\"PlayerProfileToUser\"},{\"name\":\"adminLogs\",\"kind\":\"object\",\"type\":\"AdminLog\",\"relationName\":\"AdminLogToUser\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token_expires_in\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Team\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"affiliationFeePaid\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"coach\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CoachTeam\"},{\"name\":\"players\",\"kind\":\"object\",\"type\":\"PlayerProfile\",\"relationName\":\"PlayerProfileToTeam\"},{\"name\":\"homeFixtures\",\"kind\":\"object\",\"type\":\"Fixture\",\"relationName\":\"HomeTeam\"},{\"name\":\"awayFixtures\",\"kind\":\"object\",\"type\":\"Fixture\",\"relationName\":\"AwayTeam\"},{\"name\":\"teamStats\",\"kind\":\"object\",\"type\":\"TeamStats\",\"relationName\":\"TeamToTeamStats\"}],\"dbName\":null},\"PlayerProfile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PlayerProfileToUser\"},{\"name\":\"jerseyNumber\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"position\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isCaptain\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"teamId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"team\",\"kind\":\"object\",\"type\":\"Team\",\"relationName\":\"PlayerProfileToTeam\"},{\"name\":\"matchLogs\",\"kind\":\"object\",\"type\":\"MatchPlayerLog\",\"relationName\":\"MatchPlayerLogToPlayerProfile\"},{\"name\":\"playerStats\",\"kind\":\"object\",\"type\":\"PlayerStats\",\"relationName\":\"PlayerProfileToPlayerStats\"}],\"dbName\":null},\"TeamStats\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"teamId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"team\",\"kind\":\"object\",\"type\":\"Team\",\"relationName\":\"TeamToTeamStats\"},{\"name\":\"wins\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"losses\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"draws\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"points\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"goalsFor\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"goalsAgainst\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"goalDifference\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lastUpdated\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PlayerStats\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"player\",\"kind\":\"object\",\"type\":\"PlayerProfile\",\"relationName\":\"PlayerProfileToPlayerStats\"},{\"name\":\"goals\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"assists\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"yellowCards\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"redCards\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"matchesPlayed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lastUpdated\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Fixture\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scheduledTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"venue\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"MatchStatus\"},{\"name\":\"homeTeamId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"homeTeam\",\"kind\":\"object\",\"type\":\"Team\",\"relationName\":\"HomeTeam\"},{\"name\":\"awayTeamId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"awayTeam\",\"kind\":\"object\",\"type\":\"Team\",\"relationName\":\"AwayTeam\"},{\"name\":\"homeScore\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"awayScore\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"matchLogs\",\"kind\":\"object\",\"type\":\"MatchLog\",\"relationName\":\"FixtureToMatchLog\"},{\"name\":\"formation\",\"kind\":\"object\",\"type\":\"MatchFormation\",\"relationName\":\"FixtureToMatchFormation\"},{\"name\":\"tournamentId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tournament\",\"kind\":\"object\",\"type\":\"Tournament\",\"relationName\":\"FixtureToTournament\"}],\"dbName\":null},\"MatchFormation\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fixtureId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fixture\",\"kind\":\"object\",\"type\":\"Fixture\",\"relationName\":\"FixtureToMatchFormation\"},{\"name\":\"formationDetails\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"MatchLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fixtureId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fixture\",\"kind\":\"object\",\"type\":\"Fixture\",\"relationName\":\"FixtureToMatchLog\"},{\"name\":\"logEntry\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"playerLogs\",\"kind\":\"object\",\"type\":\"MatchPlayerLog\",\"relationName\":\"MatchLogToMatchPlayerLog\"}],\"dbName\":null},\"MatchPlayerLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"logId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"log\",\"kind\":\"object\",\"type\":\"MatchLog\",\"relationName\":\"MatchLogToMatchPlayerLog\"},{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"player\",\"kind\":\"object\",\"type\":\"PlayerProfile\",\"relationName\":\"MatchPlayerLogToPlayerProfile\"},{\"name\":\"eventType\",\"kind\":\"enum\",\"type\":\"LogType\"},{\"name\":\"minute\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"goalScorerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"assistPlayerId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Tournament\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"startDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"endDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fixtures\",\"kind\":\"object\",\"type\":\"Fixture\",\"relationName\":\"FixtureToTournament\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"AdminLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AdminLogToUser\"},{\"name\":\"action\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"targetId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"TournamentStat\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastUpdated\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

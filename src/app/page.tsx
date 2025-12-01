@@ -82,7 +82,7 @@ export default function HomePage() {
             {/* 1st Prize */}
             <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 bg-gray-100 shadow-lg">
                 {/* Placeholder for actual trophy image */}
-                <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold">
+                <div className="h-28-full flex items-center justify-center text-green-800 font-semibold">
                     <img src="./assets/graphics/t1.png" alt="null"/>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white py-4 w-full">R150 000</h3>
@@ -91,7 +91,7 @@ export default function HomePage() {
             {/* 2nd Prize */}
             <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 bg-gray-100 shadow-lg">
                 {/* Placeholder for actual trophy image */}
-                <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold">
+                <div className="h-28-full flex items-center justify-center text-green-800 font-semibold">
                     <img src="./assets/graphics/t2.png" alt="null"/>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white py-4 w-full">R30 000</h3>
@@ -100,7 +100,7 @@ export default function HomePage() {
             {/* 3rd Prize */}
             <div className="bg-green-700 flex flex-col items-center justify-start text-center p-4 bg-gray-100 shadow-lg">
                  {/* Placeholder for actual trophy image */}
-                 <div className="h-32 w-full flex items-center justify-center text-green-800 font-semibold">
+                 <div className="h-28-full flex items-center justify-center text-green-800 font-semibold">
                     <img src="./assets/graphics/t3.png" alt="null"/>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white py-4 w-full">R5 000</h3>

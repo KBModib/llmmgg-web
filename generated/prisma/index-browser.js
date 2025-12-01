@@ -121,12 +121,19 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  verificationToken: 'verificationToken',
+  verificationTokenExpires: 'verificationTokenExpires',
+  emailVerified: 'emailVerified',
+  dateOfBirth: 'dateOfBirth',
+  idNumber: 'idNumber',
+  image: 'image',
+  managedTeamId: 'managedTeamId'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -152,23 +159,122 @@ exports.Prisma.SessionScalarFieldEnum = {
   expires: 'expires'
 };
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  emailVerified: 'emailVerified',
-  image: 'image'
-};
-
 exports.Prisma.VerificationTokenScalarFieldEnum = {
   identifier: 'identifier',
   token: 'token',
   expires: 'expires'
 };
 
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  affiliationFeePaid: 'affiliationFeePaid',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PlayerProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jerseyNumber: 'jerseyNumber',
+  position: 'position',
+  isCaptain: 'isCaptain',
+  teamId: 'teamId'
+};
+
+exports.Prisma.TeamStatsScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  wins: 'wins',
+  losses: 'losses',
+  draws: 'draws',
+  points: 'points',
+  goalsFor: 'goalsFor',
+  goalsAgainst: 'goalsAgainst',
+  goalDifference: 'goalDifference',
+  lastUpdated: 'lastUpdated'
+};
+
+exports.Prisma.PlayerStatsScalarFieldEnum = {
+  id: 'id',
+  playerId: 'playerId',
+  goals: 'goals',
+  assists: 'assists',
+  yellowCards: 'yellowCards',
+  redCards: 'redCards',
+  matchesPlayed: 'matchesPlayed',
+  lastUpdated: 'lastUpdated'
+};
+
+exports.Prisma.FixtureScalarFieldEnum = {
+  id: 'id',
+  scheduledTime: 'scheduledTime',
+  venue: 'venue',
+  status: 'status',
+  homeTeamId: 'homeTeamId',
+  awayTeamId: 'awayTeamId',
+  homeScore: 'homeScore',
+  awayScore: 'awayScore',
+  tournamentId: 'tournamentId'
+};
+
+exports.Prisma.MatchFormationScalarFieldEnum = {
+  id: 'id',
+  fixtureId: 'fixtureId',
+  formationDetails: 'formationDetails',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MatchLogScalarFieldEnum = {
+  id: 'id',
+  fixtureId: 'fixtureId',
+  logEntry: 'logEntry',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MatchPlayerLogScalarFieldEnum = {
+  id: 'id',
+  logId: 'logId',
+  playerId: 'playerId',
+  eventType: 'eventType',
+  minute: 'minute',
+  goalScorerId: 'goalScorerId',
+  assistPlayerId: 'assistPlayerId'
+};
+
+exports.Prisma.TournamentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdminLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  targetId: 'targetId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TournamentStatScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value',
+  lastUpdated: 'lastUpdated'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -181,13 +287,51 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  COACH: 'COACH',
+  PLAYER: 'PLAYER'
+};
+
+exports.MatchStatus = exports.$Enums.MatchStatus = {
+  SCHEDULED: 'SCHEDULED',
+  LIVE: 'LIVE',
+  COMPLETED: 'COMPLETED',
+  POSTPONED: 'POSTPONED',
+  CANCELED: 'CANCELED'
+};
+
+exports.LogType = exports.$Enums.LogType = {
+  GOAL: 'GOAL',
+  ASSIST: 'ASSIST',
+  YELLOW_CARD: 'YELLOW_CARD',
+  RED_CARD: 'RED_CARD',
+  SUBSTITUTION_IN: 'SUBSTITUTION_IN',
+  SUBSTITUTION_OUT: 'SUBSTITUTION_OUT',
+  COMMENTARY: 'COMMENTARY'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
+  User: 'User',
   Account: 'Account',
   Session: 'Session',
-  User: 'User',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Team: 'Team',
+  PlayerProfile: 'PlayerProfile',
+  TeamStats: 'TeamStats',
+  PlayerStats: 'PlayerStats',
+  Fixture: 'Fixture',
+  MatchFormation: 'MatchFormation',
+  MatchLog: 'MatchLog',
+  MatchPlayerLog: 'MatchPlayerLog',
+  Tournament: 'Tournament',
+  AdminLog: 'AdminLog',
+  TournamentStat: 'TournamentStat'
 };
 
 /**

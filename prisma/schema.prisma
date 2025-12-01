@@ -1,75 +1,269 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
-    output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+//
+// ENUMS
+//
+enum UserRole {
+  ADMIN
+  COACH
+  PLAYER
 }
 
-// Necessary for Next auth
+enum MatchStatus {
+  SCHEDULED
+  LIVE
+  COMPLETED
+  POSTPONED
+  CANCELED
+}
+
+enum LogType {
+  GOAL
+  ASSIST
+  YELLOW_CARD
+  RED_CARD
+  SUBSTITUTION_IN
+  SUBSTITUTION_OUT
+  COMMENTARY
+}
+
+//
+// USER & AUTH
+//
+model User {
+  id                        String    @id @default(cuid())
+  name                      String?
+  email                     String    @unique
+  password                  String
+  role                      UserRole  @default(PLAYER)
+
+  verificationToken         String?
+  verificationTokenExpires  DateTime?
+  emailVerified             DateTime?
+
+  dateOfBirth               DateTime?
+  idNumber                  String?   @unique
+  image                     String?
+
+  accounts                  Account[]
+  sessions                  Session[]
+
+  managedTeam    Team?   @relation("ManagedTeamCoach", fields: [managedTeamId], references: [id])
+  managedTeamId String? @unique // Foreign key field
+
+  playerProfile             PlayerProfile?
+
+  adminLogs                 AdminLog[]
+}
+
 model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+  id                        String  @id @default(cuid())
+  userId                    String
+  type                      String
+  provider                  String
+  providerAccountId         String
+  refresh_token             String?
+  access_token              String?
+  expires_at                Int?
+  token_type                String?
+  scope                     String?
+  id_token                  String?
+  session_state             String?
+  refresh_token_expires_in  Int?
+  user                      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
+}
+
+//
+// TEAM & PLAYER MODELS
+//
+model Team {
+  id                 String          @id @default(cuid())
+  name               String          @unique
+  affiliationFeePaid Boolean         @default(false)
+  createdAt          DateTime        @default(now())
+
+  coach              User?           @relation("ManagedTeamCoach")
+
+  players            PlayerProfile[]
+  homeFixtures       Fixture[]       @relation("HomeTeam")
+  awayFixtures       Fixture[]       @relation("AwayTeam")
+
+  teamStats          TeamStats?
+}
+
+model PlayerProfile {
+  id             String           @id @default(cuid())
+  userId         String           @unique
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  jerseyNumber   Int?
+  position       String?
+  isCaptain      Boolean          @default(false)
+
+  teamId         String
+  team           Team             @relation(fields: [teamId], references: [id])
+
+  matchLogs      MatchPlayerLog[]
+
+  playerStats    PlayerStats?
+
+  @@unique([teamId, jerseyNumber])
+  @@index([teamId])
+}
+
+//
+// TEAM & PLAYER CACHED STATS
+//
+model TeamStats {
+  id             String   @id @default(cuid())
+  teamId         String   @unique
+  team           Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  wins           Int      @default(0)
+  losses         Int      @default(0)
+  draws          Int      @default(0)
+  points         Int      @default(0)
+  goalsFor       Int      @default(0)
+  goalsAgainst   Int      @default(0)
+  goalDifference Int      @default(0)
+
+  lastUpdated    DateTime @updatedAt
+}
+
+model PlayerStats {
+  id            String          @id @default(cuid())
+  playerId      String          @unique
+  player        PlayerProfile   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  goals         Int @default(0)
+  assists       Int @default(0)
+  yellowCards   Int @default(0)
+  redCards      Int @default(0)
+  matchesPlayed Int @default(0)
+
+  lastUpdated   DateTime @updatedAt
+}
+
+//
+// FIXTURES & MATCH LOGGING
+//
+model Fixture {
+  id            String          @id @default(cuid())
+  scheduledTime DateTime
+  venue         String
+  status        MatchStatus     @default(SCHEDULED)
+
+  homeTeamId    String
+  homeTeam      Team            @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeamId    String
+  awayTeam      Team            @relation("AwayTeam", fields: [awayTeamId], references: [id])
+
+  homeScore     Int?
+  awayScore     Int?
+
+  matchLogs     MatchLog[]
+  formation     MatchFormation?
+
+  tournamentId  String?
+  tournament    Tournament?     @relation(fields: [tournamentId], references: [id])
+}
+
+model MatchFormation {
+  id               String   @id @default(cuid())
+  fixtureId        String   @unique
+  fixture          Fixture  @relation(fields: [fixtureId], references: [id], onDelete: Cascade)
+
+  formationDetails Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model MatchLog {
+  id           String             @id @default(cuid())
+  fixtureId    String
+  fixture      Fixture            @relation(fields: [fixtureId], references: [id], onDelete: Cascade)
+
+  logEntry     String             @db.Text
+  createdAt    DateTime           @default(now())
+
+  playerLogs   MatchPlayerLog[]
+}
+
+model MatchPlayerLog {
+  id             String          @id @default(cuid())
+  logId          String
+  log            MatchLog        @relation(fields: [logId], references: [id])
+
+  playerId       String
+  player         PlayerProfile   @relation(fields: [playerId], references: [id])
+
+  eventType      LogType
+  minute         Int?
+
+  goalScorerId   String?
+  assistPlayerId String?
+
+  @@index([logId])
+  @@index([playerId])
+}
+
+//
+// TOURNAMENT & ADMIN
+//
+model Tournament {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  startDate DateTime
+  endDate   DateTime
+  status    String
+
+  fixtures  Fixture[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  action    String
+  targetId  String?
+
+  createdAt DateTime @default(now())
+}
+
+model TournamentStat {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  value       String
+  lastUpdated DateTime @updatedAt
 }
