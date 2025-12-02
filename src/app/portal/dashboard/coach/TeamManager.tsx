@@ -448,7 +448,11 @@ export const TeamManager: React.FC = () => {
                     players.map((player) => (
                       <tr
                         key={player.id}
-                        className={player.isCaptain ? "bg-yellow-50/50" : ""}
+                        className={`transition-colors hover:bg-gray-50 ${
+                          player.isCaptain
+                            ? "bg-linear-to-r from-yellow-50 to-amber-50 border-l-4 border-yellow-500"
+                            : "border-l-4 border-transparent hover:border-green-400"
+                        }`}
                       >
                                                                    {" "}
                         <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
