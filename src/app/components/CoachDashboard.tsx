@@ -1,6 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
-import { DashboardHeader } from "./DashboardHeader";
+import Link from "next/link";
 
 // Assuming user prop is passed down from the main dashboard page
 interface CoachDashboardProps {
@@ -16,8 +15,6 @@ interface CoachDashboardProps {
 const CoachDashboard: React.FC<CoachDashboardProps> = ({ user }) => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader role="COACH" />
-
       {/* Main Content Area - Centered and Padded */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Page Title */}
