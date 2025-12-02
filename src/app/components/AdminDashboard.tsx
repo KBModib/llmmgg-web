@@ -1,13 +1,16 @@
 import React from 'react';
 import Link from "next/link";
 
+import type { UserRole } from "../../../generated/prisma";
+
 // Assuming user prop is passed down from the main dashboard page
 interface AdminDashboardProps {
   user: {
     id: string;
     email?: string | null;
     name?: string | null;
-    role: "ADMIN";
+    role: UserRole;
+    managedTeamId?: string | null;
     // Add other relevant admin data fields here
   };
   // Placeholder data props for the stats boxes

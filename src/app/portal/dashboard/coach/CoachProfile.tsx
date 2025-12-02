@@ -48,7 +48,7 @@ export const CoachProfile: React.FC = () => {
             setProfile(data);
             
             // ⭐ FINAL FIX FOR FRONTEND: Explicit typing and safe checking
-            let formattedDob: string = ''; 
+            let formattedDob = ""; 
             const dobValue = data.dateOfBirth;
 
             if (dobValue) { 

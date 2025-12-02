@@ -110,10 +110,9 @@ export const authConfig = {
     // Override the default session callback to inject custom properties from the JWT token
     session: ({ session, token }) => { 
       if (session.user && token) {
-       const extendedToken = token as JWT; 
-                session.user.id = extendedToken.id;
-                session.user.role = extendedToken.role;
-                session.user.managedTeamId = extendedToken.managedTeamId; // <-- FIX: Pass managedTeamId to session
+        session.user.id = token.id;
+        session.user.role = token.role;
+        session.user.managedTeamId = token.managedTeamId; // <-- FIX: Pass managedTeamId to session
       }
       return session;
     },

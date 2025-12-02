@@ -36,7 +36,7 @@ export default async function AdminTournamentsPage() {
       id: t.id,
       name: t.name,
       venue: t.venue,
-      startDate: new Date(t.startDate).toISOString().split("T")[0],
+      startDate: new Date(t.startDate).toISOString().split("T")[0] ?? "",
       status:
         t.status === "ACTIVE"
           ? "Confirmed"

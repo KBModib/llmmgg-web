@@ -1,12 +1,16 @@
 import React from 'react';
 import Link from "next/link";
 
+import type { UserRole } from "../../../generated/prisma";
+
 // Assuming user prop is passed down from the main dashboard page
 interface PlayerDashboardProps {
   user: {
-    fullName: string;
-    email: string;
-    role: 'PLAYER';
+    id: string;
+    email?: string | null;
+    name?: string | null;
+    role: UserRole;
+    managedTeamId?: string | null;
     // Add other relevant player data fields here
   };
 }
@@ -21,7 +25,7 @@ const PlayerDashboard: React.FC<PlayerDashboardProps> = ({ user }) => {
           <h1 className="text-3xl font-bold text-gray-900">Player Dashboard</h1>
           <p className="mt-2 text-sm text-gray-600">
             Welcome back,{" "}
-            <span className="font-semibold">{user.fullName ?? "Player"}</span>
+            <span className="font-semibold">{user.name ?? "Player"}</span>
           </p>
         </div>
 

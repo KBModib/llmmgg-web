@@ -35,7 +35,7 @@ export default async function AdminFixturesPage() {
     id: f.id,
     home: f.homeTeam,
     away: f.awayTeam,
-    date: new Date(f.scheduledTime).toISOString().split("T")[0],
+    date: new Date(f.scheduledTime).toISOString().split("T")[0] ?? "",
     kickoff: new Date(f.scheduledTime).toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",

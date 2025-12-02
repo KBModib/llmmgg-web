@@ -19,7 +19,7 @@ export async function PATCH(
     { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
-        const { teamId } = params;
+        const { teamId } = await params;
 
         const session = await auth();
 

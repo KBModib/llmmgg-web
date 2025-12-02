@@ -22,7 +22,7 @@ export async function PUT(
 ) {
     try {
         const session = await auth();
-        const { teamId } = params;
+        const { teamId } = await params;
         
         // 1. Authorization: Check user role and management
         if (!session || !session.user || session.user.role !== REQUIRED_ROLE) {

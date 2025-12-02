@@ -628,8 +628,8 @@ export const TeamManager: React.FC = () => {
                       colSpan={5}
                       className="px-6 py-10 text-center text-gray-400"
                     >
-                      No players yet. Use "Add Player" to start building your
-                      squad.
+                      No players yet. Use &quot;Add Player&quot; to start
+                      building your squad.
                     </td>
                   </tr>
                 ) : (

@@ -4,10 +4,9 @@ import { NextResponse } from 'next/server';
 import { auth } from '~/server/auth';
 import { db } from '~/server/db';
 import { z } from 'zod';
-import { Prisma } from '@prisma/client'; // ✅ CORRECTED IMPORT
+import { MatchStatus, Prisma } from "../../../../../../../../generated/prisma";
 
-const REQUIRED_ROLE = 'COACH';
-const MatchStatus = Prisma.MatchStatus;
+const REQUIRED_ROLE = "COACH";
 
 // --- ZOD SCHEMAS ---
 const UpdateFixtureSchema = z.object({
