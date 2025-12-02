@@ -16,12 +16,13 @@ const VerifySchema = z.object({
 
 export async function PATCH(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    context: { params: { teamId: string } } // ✅ CORRECTED: Receive context object
 ) {
     try {
         const session = await auth();
-        const { teamId } = params;
-
+        
+        // Destructure 'teamId' inside the function body
+        const { teamId } = context.params;
         // 1. Authorization: Only ADMIN can proceed
         if (!session || !session.user || session.user.role !== REQUIRED_ROLE) {
             return new NextResponse('Forbidden: Only Administrators can verify teams.', { status: 403 });
