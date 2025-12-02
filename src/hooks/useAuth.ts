@@ -5,25 +5,6 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-type UserRole = 'ADMIN' | 'COACH' | 'PLAYER';
-
-// Centralised redirect mapping based on user role
-export const getRedirectPath = (role: UserRole): string => {
-  switch (role) {
-    case 'ADMIN':
-      // Admins see the consolidated portal dashboard which renders the admin view
-      return '/portal/dashboard';
-    case 'COACH':
-      // Coaches have a dedicated dashboard route
-      return '/portal/dashboard';
-    case 'PLAYER':
-      // Players use the main portal dashboard
-      return '/portal/dashboard';
-    default:
-      return '/';
-  }
-};
-
 interface UseAuthOptions {
   /**
    * Optional custom route to redirect unauthenticated users to.

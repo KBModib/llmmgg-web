@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getRedirectPath } from '~/hooks/useAuth';
+
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -38,9 +38,8 @@ export default function LoginForm({ initialRole }: LoginFormProps) {
         if (result?.error) {
             setError(result.error);
         } else if (result?.ok) {
-            // Redirect based on the fixed role using shared helper
-            const redirectPath = getRedirectPath(role);
-            router.push(redirectPath);
+            
+            router.push("/portal/dashboard");
         }
     };
 
