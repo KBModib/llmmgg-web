@@ -38,25 +38,25 @@ const DashboardHeader: React.FC = () => (
           DASHBOARD
         </Link>
         <Link
-          href="/tournaments"
+          href="/portal/dashboard/coach/team"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
-          TOURNAMENTS
+          TEAM
         </Link>
         <Link
-          href="/teams"
-          className="text-white transition duration-150 hover:text-yellow-300"
-        >
-          TEAMS
-        </Link>
-        <Link
-          href="/players"
+          href="/portal/dashboard/coach/players"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           PLAYERS
         </Link>
         <Link
-          href="/fixtures"
+          href="/portal/dashboard/coach/tournaments"
+          className="text-white transition duration-150 hover:text-yellow-300"
+        >
+          TOURNAMENTS
+        </Link>
+        <Link
+          href="/portal/dashboard/coach/fixtures"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           FIXTURES
@@ -80,26 +80,41 @@ const CoachDashboard: React.FC<CoachDashboardProps> = ({ user }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Page Title */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 border-b-4 border-green-700 pb-2 inline-block">
-          Coach Dashboard
-        </h1>
+        <div className="mb-8 inline-block border-b-4 border-green-700 pb-2">
+          <h1 className="text-3xl font-bold text-gray-900">Coach Dashboard</h1>
+          <p className="mt-2 text-sm text-gray-600">
+            Managing <span className="font-semibold">{user.teamName}</span>
+          </p>
+        </div>
 
         {/* Action Buttons Grid (2x2 layout) */}
-        <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6">
           
           {/* Row 1 */}
-          <Link href="/coach/manage-team" className="p-10 bg-green-700 hover:bg-green-800 text-white font-semibold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200">
+          <Link
+            href="/portal/dashboard/coach/team"
+            className="flex items-center justify-center rounded-lg bg-green-700 p-10 text-xl font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
+          >
             Manage Team
           </Link>
-          <Link href="/coach/manage-players" className="p-10 bg-green-700 hover:bg-green-800 text-white font-semibold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200">
+          <Link
+            href="/portal/dashboard/coach/players"
+            className="flex items-center justify-center rounded-lg bg-green-700 p-10 text-xl font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
+          >
             Manage Players
           </Link>
           
           {/* Row 2 */}
-          <Link href="/tournaments" className="p-10 bg-green-700 hover:bg-green-800 text-white font-semibold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200">
+          <Link
+            href="/portal/dashboard/coach/tournaments"
+            className="flex items-center justify-center rounded-lg bg-green-700 p-10 text-xl font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
+          >
             View Tournaments
           </Link>
-          <Link href="/fixtures" className="p-10 bg-green-700 hover:bg-green-800 text-white font-semibold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200">
+          <Link
+            href="/portal/dashboard/coach/fixtures"
+            className="flex items-center justify-center rounded-lg bg-green-700 p-10 text-xl font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
+          >
             View Fixtures
           </Link>
           
