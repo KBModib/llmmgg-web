@@ -45,25 +45,25 @@ const DashboardHeader: React.FC = () => (
           DASHBOARD
         </Link>
         <Link
-          href="/tournaments"
+          href="/portal/dashboard/admin/tournaments"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           TOURNAMENTS
         </Link>
         <Link
-          href="/teams"
+          href="/portal/dashboard/admin/teams"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           TEAMS
         </Link>
         <Link
-          href="/players"
+          href="/portal/dashboard/admin/players"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           PLAYERS
         </Link>
         <Link
-          href="/fixtures"
+          href="/portal/dashboard/admin/fixtures"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           FIXTURES
@@ -137,13 +137,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, stats }) => {
         <div className="grid grid-cols-2 gap-6">
           {/* Row 1 */}
           <Link
-            href="/admin/tournaments"
+            href="/portal/dashboard/admin/tournaments"
             className="flex items-center justify-center rounded-lg bg-green-700 p-8 text-lg font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
           >
             Manage Tournaments
           </Link>
           <Link
-            href="/admin/teams"
+            href="/portal/dashboard/admin/teams"
             className="flex items-center justify-center rounded-lg bg-green-700 p-8 text-lg font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
           >
             Manage Teams
@@ -151,13 +151,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, stats }) => {
 
           {/* Row 2 */}
           <Link
-            href="/admin/players"
+            href="/portal/dashboard/admin/players"
             className="flex items-center justify-center rounded-lg bg-green-700 p-8 text-lg font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
           >
             Manage Players
           </Link>
           <Link
-            href="/admin/fixtures"
+            href="/portal/dashboard/admin/fixtures"
             className="flex items-center justify-center rounded-lg bg-green-700 p-8 text-lg font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
           >
             Manage Fixtures
