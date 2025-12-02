@@ -1,11 +1,32 @@
 // src/app/portal/dashboard/admin/tournaments/page.tsx
 import { auth } from '~/server/auth';
 import { redirect } from 'next/navigation';
+import {
+  AdminTournamentsManager,
+  type AdminTournamentRecord,
+} from '../components/AdminTournamentsManager';
 
 const mockStats = [
   { label: 'Active Tournaments', value: 3 },
   { label: 'Completed Tournaments', value: 5 },
   { label: 'Upcoming Tournaments', value: 2 },
+];
+
+const mockTournaments: AdminTournamentRecord[] = [
+  {
+    id: 'tournament-1',
+    name: 'Gauteng Champions Cup',
+    venue: 'Lucas Masterpieces Moripe Stadium',
+    startDate: '2025-02-12',
+    status: 'Confirmed',
+  },
+  {
+    id: 'tournament-2',
+    name: 'Winter Series Invitational',
+    venue: 'Orlando Stadium',
+    startDate: '2025-04-07',
+    status: 'Draft',
+  },
 ];
 
 export default async function AdminTournamentsPage() {
@@ -43,6 +64,8 @@ export default async function AdminTournamentsPage() {
             </div>
           ))}
         </section>
+
+        <AdminTournamentsManager initialTournaments={mockTournaments} />
       </div>
     </main>
   );

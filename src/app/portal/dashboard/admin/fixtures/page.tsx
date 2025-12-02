@@ -1,23 +1,29 @@
 // src/app/portal/dashboard/admin/fixtures/page.tsx
 import { auth } from '~/server/auth';
 import { redirect } from 'next/navigation';
+import {
+  AdminFixturesManager,
+  type AdminFixtureRecord,
+} from '../components/AdminFixturesManager';
 
-const mockFixtures = [
+const mockFixtures: AdminFixtureRecord[] = [
   {
     id: 'adm-fixture-1',
     home: 'Mamelodi Rockets',
     away: 'Soweto Warriors',
-    date: '22 Feb 2025',
+    date: '2025-02-22',
     kickoff: '15:00',
     venue: 'Lucas Masterpieces Moripe Stadium',
+    status: 'Scheduled',
   },
   {
     id: 'adm-fixture-2',
     home: 'Atteridgeville United',
     away: 'Pretoria City',
-    date: '01 Mar 2025',
+    date: '2025-03-01',
     kickoff: '18:00',
     venue: 'Orlando Stadium',
+    status: 'Draft',
   },
 ];
 
@@ -42,32 +48,7 @@ export default async function AdminFixturesPage() {
           </p>
         </header>
 
-        <section className="overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-gray-100">
-          <table className="min-w-full divide-y divide-gray-100">
-            <thead className="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
-              <tr>
-                <th className="px-6 py-4">Date</th>
-                <th className="px-6 py-4">Match</th>
-                <th className="px-6 py-4">Kick-off</th>
-                <th className="px-6 py-4">Venue</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
-              {mockFixtures.map((fixture) => (
-                <tr key={fixture.id}>
-                  <td className="px-6 py-4 font-medium text-gray-900">
-                    {fixture.date}
-                  </td>
-                  <td className="px-6 py-4">
-                    {fixture.home} vs {fixture.away}
-                  </td>
-                  <td className="px-6 py-4">{fixture.kickoff}</td>
-                  <td className="px-6 py-4">{fixture.venue}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+        <AdminFixturesManager initialFixtures={mockFixtures} />
       </div>
     </main>
   );

@@ -1,11 +1,30 @@
 // src/app/portal/dashboard/admin/players/page.tsx
 import { auth } from '~/server/auth';
 import { redirect } from 'next/navigation';
+import {
+  AdminPlayersManager,
+  type AdminPlayerRecord,
+} from '../components/AdminPlayersManager';
 
-const mockPlayers = [
-  { name: 'Alex Johnson', team: 'Mamelodi Rockets', status: 'Active' },
-  { name: 'Sipho Dlamini', team: 'Atteridgeville United', status: 'Pending' },
-  { name: 'Kabelo Mokoena', team: 'Pretoria City', status: 'Active' },
+const mockPlayers: AdminPlayerRecord[] = [
+  {
+    id: 'player-1',
+    name: 'Alex Johnson',
+    team: 'Mamelodi Rockets',
+    status: 'Active',
+  },
+  {
+    id: 'player-2',
+    name: 'Sipho Dlamini',
+    team: 'Atteridgeville United',
+    status: 'Pending',
+  },
+  {
+    id: 'player-3',
+    name: 'Kabelo Mokoena',
+    team: 'Pretoria City',
+    status: 'Active',
+  },
 ];
 
 export default async function AdminPlayersPage() {
@@ -28,38 +47,7 @@ export default async function AdminPlayersPage() {
           </p>
         </header>
 
-        <section className="overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-gray-100">
-          <table className="min-w-full divide-y divide-gray-100">
-            <thead className="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
-              <tr>
-                <th className="px-6 py-4">Player</th>
-                <th className="px-6 py-4">Team</th>
-                <th className="px-6 py-4 text-right">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
-              {mockPlayers.map((player) => (
-                <tr key={player.name}>
-                  <td className="px-6 py-4 font-medium text-gray-900">
-                    {player.name}
-                  </td>
-                  <td className="px-6 py-4">{player.team}</td>
-                  <td className="px-6 py-4 text-right">
-                    <span
-                      className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                        player.status === 'Active'
-                          ? 'bg-green-50 text-green-700'
-                          : 'bg-yellow-50 text-yellow-700'
-                      }`}
-                    >
-                      {player.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+        <AdminPlayersManager initialPlayers={mockPlayers} />
       </div>
     </main>
   );
