@@ -405,35 +405,26 @@ export const TeamManager: React.FC = () => {
                                 {/* Roster Table View (Improved display) */}
             <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-lg">
               <table className="min-w-full divide-y divide-gray-100 text-sm text-gray-700">
-                <thead className="bg-gray-50 text-left text-xs font-semibold tracking-wide text-gray-500 uppercase">
-                                                 {" "}
+                <thead className="bg-gray-50">
                   <tr>
-                                                       {" "}
-                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                    <th className="px-6 py-4 text-center text-xs font-semibold tracking-wide text-gray-600 uppercase">
                       #
                     </th>
-                                                       {" "}
-                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                      Name
+                    <th className="px-6 py-4 text-left text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                      Player
                     </th>
-                                                       {" "}
-                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                    <th className="px-6 py-4 text-left text-xs font-semibold tracking-wide text-gray-600 uppercase">
                       Position
                     </th>
-                                                       {" "}
-                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                      Captain
+                    <th className="px-6 py-4 text-left text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                      Status
                     </th>
-                                                       {" "}
-                    <th className="px-6 py-4 text-right text-xs font-medium tracking-wider text-gray-500 uppercase">
+                    <th className="px-6 py-4 text-right text-xs font-semibold tracking-wide text-gray-600 uppercase">
                       Actions
                     </th>
-                                                   {" "}
                   </tr>
-                                             {" "}
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                                                 {" "}
                   {players.length === 0 ? (
                     <tr>
                       <td
@@ -450,98 +441,98 @@ export const TeamManager: React.FC = () => {
                         key={player.id}
                         className={`transition-colors hover:bg-gray-50 ${
                           player.isCaptain
-                            ? "bg-linear-to-r from-yellow-50 to-amber-50 border-l-4 border-yellow-500"
+                            ? "border-l-4 border-yellow-500 bg-linear-to-r from-yellow-50 to-amber-50"
                             : "border-l-4 border-transparent hover:border-green-400"
                         }`}
                       >
-                                                                   {" "}
-                        <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
-                          {player.jerseyNumber}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center">
+                            <span className="w-8 text-center text-lg font-bold text-gray-900">
+                              {player.jerseyNumber ?? "—"}
+                            </span>
+                          </div>
                         </td>
-                                                                   {" "}
-                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
-                          {player.name}
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col">
+                            <span className="font-semibold text-gray-900">
+                              {player.name}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              ID: {player.id.substring(0, 8)}...
+                            </span>
+                          </div>
                         </td>
-                                                                   {" "}
-                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
-                          {player.position}
+                        <td className="px-6 py-4">
+                          <span className="inline-flex rounded-lg bg-emerald-100 px-3 py-1.5 text-xs font-semibold text-emerald-800 transition-transform hover:scale-105">
+                            {player.position ?? "Unassigned"}
+                          </span>
                         </td>
-                                                                   {" "}
-                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
-                                                                         {" "}
-                          {player.isCaptain ? "⭐" : ""}                       
-                                             {" "}
+                        <td className="px-6 py-4">
+                          {player.isCaptain ? (
+                            <span className="inline-flex items-center gap-1.5 rounded-lg border border-yellow-300 bg-linear-to-r from-yellow-100 to-amber-100 px-3 py-1.5 text-xs font-semibold text-yellow-800">
+                              <span className="text-sm">⭐</span>
+                              Captain
+                            </span>
+                          ) : (
+                            <span className="text-xs font-medium text-gray-400">
+                              —
+                            </span>
+                          )}
                         </td>
-                                                                   {" "}
-                        <td className="space-x-4 px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
-                                                                         {" "}
-                          <button
-                            onClick={() => handleEditClick(player)}
-                            className="text-indigo-600 transition hover:text-indigo-900 disabled:opacity-50"
-                            disabled={loading}
-                          >
-                                                                               
-                            Edit                                              
-                             {" "}
-                          </button>
-                                                                         {" "}
-                          <button
-                            onClick={() =>
-                              handleRemovePlayer(player.id, player.name)
-                            }
-                            className="text-red-600 transition hover:text-red-900 disabled:opacity-50"
-                            disabled={loading}
-                          >
-                                                                               
-                            Remove                                              
-                             {" "}
-                          </button>
-                                                                     {" "}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-end gap-2">
+                            <button
+                              onClick={() => handleEditClick(player)}
+                              className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-indigo-600 transition-all hover:bg-indigo-100 hover:text-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+                              disabled={loading}
+                            >
+                              <span>✎</span>
+                              Edit
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleRemovePlayer(player.id, player.name)
+                              }
+                              className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition-all hover:bg-red-100 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+                              disabled={loading}
+                            >
+                              <span>✕</span>
+                              Remove
+                            </button>
+                          </div>
                         </td>
-                                                               {" "}
                       </tr>
                     ))
                   )}
-                                             {" "}
+                                             
                 </tbody>
-                                       {" "}
+                                       
               </table>
-                                 {" "}
+                                 
             </div>
-                           {" "}
+                           
           </section>
-                                         {" "}
-          {/* Visual context for the dashboard layout 
-                
-                
-
-[Image of a UI screen design for a sports team management dashboard]
-
-                
-                
-                */}
+                                   
         </section>
-                    {/* Modals Integration */}           {" "}
+                    {/* Modals Integration */}           
         {teamId && (
           <>
-                               {" "}
+                           
             <AddPlayerModal
               isOpen={isAddModalOpen}
               onClose={handleCloseModals}
               teamId={teamId}
               onPlayerAdded={fetchRoster} // Refresh data upon success
             />
-                               {" "}
+                               
             <EditPlayerModal
               isOpen={!!playerToEdit} // True if playerToEdit is not null
               onClose={handleCloseModals}
               player={playerToEdit}
               onPlayerUpdated={fetchRoster} // Refresh roster on success
             />
-                           {" "}
           </>
         )}
-               {" "}
       </>
     );
 };
