@@ -31,10 +31,10 @@ export default function RootLayout({
             {/* Navbar is placed here so it wraps all pages (children) */}
             <NavbarWrapper />
             {children}
+            <Footer />
           </TRPCReactProvider>
         </AuthProvider>
       </body>
-      <Footer />
     </html>
   );
 }

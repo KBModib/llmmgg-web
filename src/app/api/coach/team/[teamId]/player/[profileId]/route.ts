@@ -18,13 +18,13 @@ const UpdatePlayerSchema = z.object({
 
 export async function DELETE(
     req: Request, 
-    { params }: { params: { teamId: string, profileId: string } }
+    { params }: { params: Promise<{ teamId: string, profileId: string }> }
 ) {
     // ... [DELETE logic as implemented previously] ...
     // Note: This is the same logic as the previous response
     try {
         const session = await auth();
-        const { teamId, profileId } = params;
+        const { teamId, profileId } = await params;
 
         // 1. Authorization: Check user role
         if (!session || !session.user || session.user.role !== REQUIRED_ROLE) {
@@ -84,11 +84,11 @@ export async function DELETE(
 
 export async function PUT(
     req: Request, 
-    { params }: { params: { teamId: string, profileId: string } }
+    { params }: { params: Promise<{ teamId: string, profileId: string }> }
 ) {
     try {
         const session = await auth();
-        const { teamId, profileId } = params;
+        const { teamId, profileId } = await params;
         
         // 1. Authorization: Check user role
         if (!session || !session.user || session.user.role !== REQUIRED_ROLE) {

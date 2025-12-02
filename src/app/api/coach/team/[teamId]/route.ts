@@ -18,7 +18,7 @@ const UpdateTeamSchema = z.object({
 // PUT: Update a Coach's managed team details
 export async function PUT(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
         const session = await auth();

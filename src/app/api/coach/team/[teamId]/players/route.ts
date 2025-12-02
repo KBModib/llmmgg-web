@@ -45,16 +45,17 @@ async function authorizeCoach(teamId: string) {
 // GET: Retrieve the team roster
 export async function GET(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
-        const authCheck = await authorizeCoach(params.teamId);
+        const { teamId } = await params;
+        const authCheck = await authorizeCoach(teamId);
         if (!authCheck.authorized) {
             return new NextResponse(authCheck.message, { status: authCheck.status });
         }
         
         const players = await db.playerProfile.findMany({
-            where: { teamId: params.teamId },
+            where: { teamId: teamId },
             select: {
                 id: true,
                 jerseyNumber: true,

@@ -9,11 +9,11 @@ const REQUIRED_ROLE = 'COACH';
 // Handler for GET request (Fetching the entire team roster)
 export async function GET(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
         const session = await auth();
-        const { teamId } = params;
+        const { teamId } = await params;
 
         // 1. Authorization: Check user role
         if (!session || !session.user || session.user.role !== REQUIRED_ROLE) {

@@ -18,7 +18,7 @@ const createPlayerSchema = z.object({
 // Handler for POST request (Creating a new player)
 export async function POST(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
         const session = await auth();

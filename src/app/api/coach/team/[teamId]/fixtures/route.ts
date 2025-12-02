@@ -36,15 +36,16 @@ async function authorizeCoach(teamId: string) {
 // --- API HANDLER: GET (FIXTURE RETRIEVAL) ---
 export async function GET(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
-        const authCheck = await authorizeCoach(params.teamId);
+        const { teamId } = await params;
+        const authCheck = await authorizeCoach(teamId);
         if (!authCheck.authorized) {
             return new NextResponse(authCheck.message, { status: authCheck.status });
         }
         
-        const myTeamId = params.teamId;
+        const myTeamId = teamId;
         const fixtures = await db.fixture.findMany({
             where: {
                 OR: [{ homeTeamId: myTeamId }, { awayTeamId: myTeamId }],
@@ -83,13 +84,14 @@ export async function GET(
 }
 
 
-// --- API HANDLER: POST (FIXTURE SCHEDULING) ---
+// --- API HANDLER: POST (FIXTURE CREATION) ---
 export async function POST(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
-        const authCheck = await authorizeCoach(params.teamId);
+        const { teamId } = await params;
+        const authCheck = await authorizeCoach(teamId);
         if (!authCheck.authorized) {
             return new NextResponse(authCheck.message, { status: authCheck.status });
         }

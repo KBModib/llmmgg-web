@@ -18,7 +18,7 @@ const CreateFixtureSchema = z.object({
 
 export async function POST(
     req: Request, 
-    { params }: { params: { teamId: string } }
+    { params }: { params: Promise<{ teamId: string }> }
 ) {
     try {
         const session = await auth();
