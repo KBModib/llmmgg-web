@@ -7,35 +7,28 @@ import {
 } from '../components/CoachPlayersManager';
 import { TeamManager } from "../TeamManager";
 
-const mockPlayers: CoachPlayerRecord[] = [
-  {
-    id: "coach-player-1",
-    name: "Alex Johnson",
-    position: "Forward",
-    jerseyNumber: 9,
-    status: "Match Fit",
-  },
-  {
-    id: "coach-player-2",
-    name: "Sipho Dlamini",
-    position: "Midfielder",
-    jerseyNumber: 8,
-    status: "Pending Medical",
-  },
-  {
-    id: "coach-player-3",
-    name: "Kabelo Mokoena",
-    position: "Defender",
-    jerseyNumber: 4,
-    status: "Match Fit",
-  },
-];
-
 export default async function CoachPlayersPage() {
   const session = await auth();
 
   if (!session || session.user.role !== "COACH") {
     redirect("/portal/login?role=COACH");
+  }
+
+  // Fetch live players data for coach's team
+  let players: CoachPlayerRecord[] = [];
+  try {
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/coach/players`,
+      {
+        cache: "no-store",
+      },
+    );
+    if (response.ok) {
+      const data = await response.json();
+      players = Array.isArray(data) ? data : [];
+    }
+  } catch (error) {
+    console.error("Failed to fetch players:", error);
   }
 
   return (
@@ -51,7 +44,7 @@ export default async function CoachPlayersPage() {
             live data from the coach API.
           </p>
         </header>
-        <CoachPlayersManager initialPlayers={mockPlayers} />
+        <CoachPlayersManager initialPlayers={players} />
       </div>
     </main>
   );
