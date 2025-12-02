@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import "~/styles/globals.css"; 
 
 import AuthProvider from "~/app/components/AuthProvider"; 
-import Navbar from "~/app/components/Navbar";
+import NavbarWrapper from "~/app/components/NavbarWrapper";
 import { Footer } from "./components/Footer";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -24,14 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     // NOTE: You may need to replace the font class names if you are not using Geist
-    <html lang="en"> 
+    <html lang="en">
       <body>
         <AuthProvider>
-        <TRPCReactProvider>
-          {/* Navbar is placed here so it wraps all pages (children) */}
-          <Navbar /> 
-          {children} 
-        </TRPCReactProvider>
+          <TRPCReactProvider>
+            {/* Navbar is placed here so it wraps all pages (children) */}
+            <NavbarWrapper />
+            {children}
+          </TRPCReactProvider>
         </AuthProvider>
       </body>
       <Footer />

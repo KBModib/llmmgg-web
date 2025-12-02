@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { DashboardHeader } from "./DashboardHeader";
 
 // Assuming user prop is passed down from the main dashboard page
 interface AdminDashboardProps {
@@ -19,64 +20,7 @@ interface AdminDashboardProps {
   };
 }
 
-// Helper component for the Navigation (Header) - Consistent across dashboards
-const DashboardHeader: React.FC = () => (
-  <header className="bg-green-700 shadow-md">
-    <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-      {/* Logo/Brand Section */}
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center text-lg font-bold text-white">
-          {/* Placeholder for the Logo */}
-          <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-full border border-white bg-green-500 text-xs font-extrabold text-green-900">
-            LG
-          </div>
-          <span className="text-sm font-extrabold tracking-wider uppercase">
-            GreenLeague LTD
-          </span>
-        </div>
-      </div>
 
-      {/* Navigation Links */}
-      <nav className="flex space-x-6 text-sm font-semibold">
-        <Link
-          href="/portal/dashboard"
-          className="text-white transition duration-150 hover:text-yellow-300"
-        >
-          DASHBOARD
-        </Link>
-        <Link
-          href="/portal/dashboard/admin/tournaments"
-          className="text-white transition duration-150 hover:text-yellow-300"
-        >
-          TOURNAMENTS
-        </Link>
-        <Link
-          href="/portal/dashboard/admin/teams"
-          className="text-white transition duration-150 hover:text-yellow-300"
-        >
-          TEAMS
-        </Link>
-        <Link
-          href="/portal/dashboard/admin/players"
-          className="text-white transition duration-150 hover:text-yellow-300"
-        >
-          PLAYERS
-        </Link>
-        <Link
-          href="/portal/dashboard/admin/fixtures"
-          className="text-white transition duration-150 hover:text-yellow-300"
-        >
-          FIXTURES
-        </Link>
-      </nav>
-
-      {/* Logout Button */}
-      <button className="rounded bg-red-600 px-3 py-1 text-sm font-semibold text-white transition duration-150 hover:bg-red-700">
-        LOGOUT
-      </button>
-    </div>
-  </header>
-);
 
 // Helper component for the Stat Box (Card)
 interface StatCardProps {
@@ -100,7 +44,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, stats }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader />
+      <DashboardHeader role="ADMIN" />
 
       {/* Main Content Area - Centered and Padded */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
