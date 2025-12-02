@@ -1,6 +1,6 @@
 // src/db.ts
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../generated/prisma";
 
 // Global variable approach to prevent multiple Prisma client instances in development
 const globalForPrisma = global as unknown as { prisma: PrismaClient };

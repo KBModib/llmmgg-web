@@ -57,8 +57,8 @@ model User {
   accounts Account[]
   sessions Session[]
 
-  managedTeam   Team?   @relation("CoachTeam", fields: [managedTeamId], references: [id])
-  managedTeamId String? @unique
+  managedTeam   Team?   @relation("ManagedTeamCoach", fields: [managedTeamId], references: [id])
+  managedTeamId String? @unique // Foreign key field
 
   playerProfile PlayerProfile?
 
@@ -109,7 +109,8 @@ model Team {
   affiliationFeePaid Boolean  @default(false)
   createdAt          DateTime @default(now())
 
-  coach        User?           @relation("CoachTeam")
+  coach User? @relation("ManagedTeamCoach")
+
   players      PlayerProfile[]
   homeFixtures Fixture[]       @relation("HomeTeam")
   awayFixtures Fixture[]       @relation("AwayTeam")
