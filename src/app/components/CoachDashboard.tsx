@@ -15,39 +15,56 @@ interface CoachDashboardProps {
 // Helper component for the Navigation (Header) - Consistent across dashboards
 const DashboardHeader: React.FC = () => (
   <header className="bg-green-700 shadow-md">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4">
+    <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
       {/* Logo/Brand Section */}
       <div className="flex items-center space-x-4">
-        <div className="text-white text-lg font-bold flex items-center">
+        <div className="flex items-center text-lg font-bold text-white">
           {/* Placeholder for the Logo */}
-          <div className="w-8 h-8 mr-2 rounded-full bg-green-500 flex items-center justify-center text-xs text-green-900 font-extrabold border border-white">
+          <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-full border border-white bg-green-500 text-xs font-extrabold text-green-900">
             LG
           </div>
-          <span className="text-sm font-extrabold tracking-wider uppercase">GreenLeague LTD</span>
+          <span className="text-sm font-extrabold tracking-wider uppercase">
+            GreenLeague LTD
+          </span>
         </div>
       </div>
 
       {/* Navigation Links */}
       <nav className="flex space-x-6 text-sm font-semibold">
-        <Link href="/dashboard" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link
+          href="/portal/dashboard"
+          className="text-white transition duration-150 hover:text-yellow-300"
+        >
           DASHBOARD
         </Link>
-        <Link href="/tournaments" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link
+          href="/tournaments"
+          className="text-white transition duration-150 hover:text-yellow-300"
+        >
           TOURNAMENTS
         </Link>
-        <Link href="/teams" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link
+          href="/teams"
+          className="text-white transition duration-150 hover:text-yellow-300"
+        >
           TEAMS
         </Link>
-        <Link href="/players" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link
+          href="/players"
+          className="text-white transition duration-150 hover:text-yellow-300"
+        >
           PLAYERS
         </Link>
-        <Link href="/fixtures" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link
+          href="/fixtures"
+          className="text-white transition duration-150 hover:text-yellow-300"
+        >
           FIXTURES
         </Link>
       </nav>
 
       {/* Logout Button */}
-      <button className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm font-semibold transition duration-150">
+      <button className="rounded bg-red-600 px-3 py-1 text-sm font-semibold text-white transition duration-150 hover:bg-red-700">
         LOGOUT
       </button>
     </div>

@@ -28,19 +28,16 @@ const DashboardHeader: React.FC = () => (
 
       {/* Navigation Links */}
       <nav className="flex space-x-6 text-sm font-semibold">
-        <Link href="/dashboard" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link href="/portal/dashboard" className="text-white hover:text-yellow-300 transition duration-150">
           DASHBOARD
         </Link>
-        <Link href="/tournaments" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link href="/portal/dashboard/player/profile" className="text-white hover:text-yellow-300 transition duration-150">
+          PROFILE
+        </Link>
+        <Link href="/portal/dashboard/player/tournaments" className="text-white hover:text-yellow-300 transition duration-150">
           TOURNAMENTS
         </Link>
-        <Link href="/teams" className="text-white hover:text-yellow-300 transition duration-150">
-          TEAMS
-        </Link>
-        <Link href="/players" className="text-white hover:text-yellow-300 transition duration-150">
-          PLAYERS
-        </Link>
-        <Link href="/fixtures" className="text-white hover:text-yellow-300 transition duration-150">
+        <Link href="/portal/dashboard/player/fixtures" className="text-white hover:text-yellow-300 transition duration-150">
           FIXTURES
         </Link>
       </nav>
@@ -62,25 +59,30 @@ const PlayerDashboard: React.FC<PlayerDashboardProps> = ({ user }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Page Title */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 border-b-4 border-green-700 pb-2 inline-block">
-          Player Dashboard
-        </h1>
+        <div className="mb-8 border-b-4 border-green-700 pb-4">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Player Dashboard
+          </h1>
+          <p className="mt-2 text-sm text-gray-600">
+            Welcome back, <span className="font-semibold">{user.fullName ?? 'Player'}</span>
+          </p>
+        </div>
 
         {/* 1. Action Buttons Grid (Kept) */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
           
           {/* Profile Button */}
-          <Link href="/profile" className="p-10 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200 col-span-1">
+          <Link href="/portal/dashboard/player/profile" className="p-10 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200 col-span-1">
             Profile
           </Link>
           
           {/* View Tournaments Button */}
-          <Link href="/tournaments" className="p-10 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200 col-span-1">
+          <Link href="/portal/dashboard/player/tournaments" className="p-10 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200 col-span-1">
             View Tournaments
           </Link>
           
           {/* View Fixtures Button */}
-          <Link href="/fixtures" className="p-10 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200 col-span-1 max-w-sm">
+          <Link href="/portal/dashboard/player/fixtures" className="p-10 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-lg shadow-lg flex items-center justify-center transition duration-200 col-span-1 max-w-sm">
             View Fixtures
           </Link>
           

@@ -39,7 +39,7 @@ const DashboardHeader: React.FC = () => (
       {/* Navigation Links */}
       <nav className="flex space-x-6 text-sm font-semibold">
         <Link
-          href="/dashboard"
+          href="/portal/dashboard"
           className="text-white transition duration-150 hover:text-yellow-300"
         >
           DASHBOARD
