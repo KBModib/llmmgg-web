@@ -96,7 +96,8 @@ export async function POST(
             return new NextResponse(authCheck.message, { status: authCheck.status });
         }
 
-        const homeTeamId = params.teamId;
+        const { teamId } = await params;
+        const homeTeamId = teamId;
         const body = await req.json();
         const validatedData = CreateFixtureSchema.safeParse(body);
 

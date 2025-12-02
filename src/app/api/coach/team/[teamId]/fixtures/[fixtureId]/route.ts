@@ -48,10 +48,10 @@ async function getAuthorizedFixture(teamId: string, fixtureId: string) {
 // --- API HANDLER: PUT (UPDATE FIXTURE DETAILS) ---
 export async function PUT(
     req: Request, 
-    { params }: { params: { teamId: string; fixtureId: string } }
+    { params }: { params: Promise<{ teamId: string; fixtureId: string }> }
 ) {
     try {
-        const { teamId, fixtureId } = params;
+        const { teamId, fixtureId } = await params;
         const authCheck = await getAuthorizedFixture(teamId, fixtureId);
         
         if (!authCheck.authorized) {
@@ -102,10 +102,10 @@ export async function PUT(
 // --- API HANDLER: DELETE (CANCEL FIXTURE) ---
 export async function DELETE(
     req: Request, 
-    { params }: { params: { teamId: string; fixtureId: string } }
+    { params }: { params: Promise<{ teamId: string; fixtureId: string }> }
 ) {
     try {
-        const { teamId, fixtureId } = params;
+        const { teamId, fixtureId } = await params;
         const authCheck = await getAuthorizedFixture(teamId, fixtureId);
         
         if (!authCheck.authorized) {
