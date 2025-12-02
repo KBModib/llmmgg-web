@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getRedirectPath } from '~/hooks/useAuth';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -19,20 +20,6 @@ export default function LoginForm({ initialRole }: LoginFormProps) {
     const role = initialRole; 
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    
-    // Define the redirect mapping logic
-    const getRedirectPath = (role: UserRole) => {
-        switch (role) {
-            case 'ADMIN':
-                return '/admin/dashboard';
-            case 'COACH':
-                return '/coach/dashboard';
-            case 'PLAYER':
-                return '/player/dashboard';
-            default:
-                return '/';
-        }
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -51,7 +38,7 @@ export default function LoginForm({ initialRole }: LoginFormProps) {
         if (result?.error) {
             setError(result.error);
         } else if (result?.ok) {
-            // Redirect based on the fixed role
+            // Redirect based on the fixed role using shared helper
             const redirectPath = getRedirectPath(role);
             router.push(redirectPath);
         }
