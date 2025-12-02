@@ -2,6 +2,14 @@
 import { auth } from '~/server/auth';
 import { redirect } from 'next/navigation';
 import { TeamManager } from '../TeamManager';
+import { CoachTeamManager } from '../components/CoachTeamManager';
+
+const demoTeam = {
+  name: 'Mamelodi Rockets',
+  motto: 'We run the capital',
+  homeGround: 'Lucas Masterpieces Moripe Stadium',
+  trainingDays: ['Tuesday', 'Thursday'],
+};
 
 export default async function CoachTeamPage() {
   const session = await auth();
@@ -22,6 +30,8 @@ export default async function CoachTeamPage() {
             Update your roster, add players, and maintain jersey assignments.
           </p>
         </header>
+
+        <CoachTeamManager initialTeam={demoTeam} />
 
         <section className="rounded-2xl bg-white p-4 shadow md:p-6">
           <TeamManager />

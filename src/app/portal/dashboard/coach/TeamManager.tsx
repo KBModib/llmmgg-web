@@ -357,107 +357,187 @@ export const TeamManager: React.FC = () => {
     }
 
     // Main Render
-    return (
-        <>
-            <div className="p-8 sm:p-10 bg-white rounded-lg shadow-xl">
-                <header className="mb-8 border-b pb-4">
-                    <h1 className="text-3xl font-extrabold text-gray-800">
-                        Team Management: <span style={{ color: primaryGreen }}>{/* Fetch Team Name Here */}Team Roster</span>
-                    </h1>
-                    <p className="text-sm text-gray-500 mt-1">
-                        Current Roster Size: **{players.length || 0}**
-                    </p>
-                </header>
-
-                <section className="mt-6">
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-2xl font-semibold text-gray-700">Team Roster</h2>
-                        {/* Button to open the modal */}
-                        <button
-                            className="px-4 py-2 text-white font-semibold rounded-md transition disabled:opacity-50"
-                            style={{ backgroundColor: primaryGreen }}
-                            onClick={() => setIsAddModalOpen(true)}
-                        >
-                            + Add Player
-                        </button>
-                    </div>
-
-                    {/* Roster Table View (Improved display) */}
-                    <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Captain</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {players.length === 0 ? (
-                                    <tr><td colSpan={5} className="text-center py-8 text-gray-500 italic">Your roster is empty. Add players above.</td></tr>
-                                ) : (
-                                    players.map((player) => (
-                                        <tr key={player.id} className={player.isCaptain ? 'bg-yellow-50/50' : ''}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{player.jerseyNumber}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{player.name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{player.position}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {player.isCaptain ? '⭐' : ''}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
-                                                <button 
-                                                    onClick={() => handleEditClick(player)}
-                                                    className="text-indigo-600 hover:text-indigo-900 transition disabled:opacity-50"
-                                                    disabled={loading}
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    onClick={() => handleRemovePlayer(player.id, player.name)}
-                                                    className="text-red-600 hover:text-red-900 transition disabled:opacity-50"
-                                                    disabled={loading}
-                                                >
-                                                    Remove
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-                
-                {/* Visual context for the dashboard layout 
+    return (
+      <>
+        <section className="rounded-3xl bg-white/90 p-6 shadow-2xl ring-1 ring-gray-100 sm:p-10">
+          <header className="flex flex-col gap-6 border-b pb-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.3em] text-green-600 uppercase">
+                Team Management
+              </p>
+              <h1 className="mt-2 text-3xl font-black text-gray-900">
+                Team Roster
+              </h1>
+              <p className="mt-2 text-sm text-gray-500">
+                Manage your squad - add players, assign positions, and set
+                captaincy.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 text-center shadow-sm">
+                <p className="text-xs tracking-wide text-gray-400 uppercase">
+                  Roster Size
+                </p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {players.length || 0}
+                </p>
+              </div>
+            </div>
+          </header>
+          <section className="mt-8 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  Squad List
+                </h2>
+                <p className="text-sm text-gray-500">
+                  View and manage your team players.
+                </p>
+              </div>
+              <button
+                className="rounded-xl bg-green-700 px-6 py-3 text-sm font-semibold tracking-wide text-white uppercase shadow-lg transition hover:bg-green-800 disabled:opacity-50"
+                onClick={() => setIsAddModalOpen(true)}
+                disabled={loading}
+              >
+                + Add Player
+              </button>
+            </div>
+                                {/* Roster Table View (Improved display) */}
+            <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-lg">
+              <table className="min-w-full divide-y divide-gray-100 text-sm text-gray-700">
+                <thead className="bg-gray-50 text-left text-xs font-semibold tracking-wide text-gray-500 uppercase">
+                                                 {" "}
+                  <tr>
+                                                       {" "}
+                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                      #
+                    </th>
+                                                       {" "}
+                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                      Name
+                    </th>
+                                                       {" "}
+                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                      Position
+                    </th>
+                                                       {" "}
+                    <th className="px-6 py-4 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                      Captain
+                    </th>
+                                                       {" "}
+                    <th className="px-6 py-4 text-right text-xs font-medium tracking-wider text-gray-500 uppercase">
+                      Actions
+                    </th>
+                                                   {" "}
+                  </tr>
+                                             {" "}
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                                                 {" "}
+                  {players.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="px-6 py-10 text-center text-gray-400"
+                      >
+                        No players yet. Use "Add Player" to start building your
+                        squad.
+                      </td>
+                    </tr>
+                  ) : (
+                    players.map((player) => (
+                      <tr
+                        key={player.id}
+                        className={player.isCaptain ? "bg-yellow-50/50" : ""}
+                      >
+                                                                   {" "}
+                        <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
+                          {player.jerseyNumber}
+                        </td>
+                                                                   {" "}
+                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
+                          {player.name}
+                        </td>
+                                                                   {" "}
+                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
+                          {player.position}
+                        </td>
+                                                                   {" "}
+                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
+                                                                         {" "}
+                          {player.isCaptain ? "⭐" : ""}                       
+                                             {" "}
+                        </td>
+                                                                   {" "}
+                        <td className="space-x-4 px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
+                                                                         {" "}
+                          <button
+                            onClick={() => handleEditClick(player)}
+                            className="text-indigo-600 transition hover:text-indigo-900 disabled:opacity-50"
+                            disabled={loading}
+                          >
+                                                                               
+                            Edit                                              
+                             {" "}
+                          </button>
+                                                                         {" "}
+                          <button
+                            onClick={() =>
+                              handleRemovePlayer(player.id, player.name)
+                            }
+                            className="text-red-600 transition hover:text-red-900 disabled:opacity-50"
+                            disabled={loading}
+                          >
+                                                                               
+                            Remove                                              
+                             {" "}
+                          </button>
+                                                                     {" "}
+                        </td>
+                                                               {" "}
+                      </tr>
+                    ))
+                  )}
+                                             {" "}
+                </tbody>
+                                       {" "}
+              </table>
+                                 {" "}
+            </div>
+                           {" "}
+          </section>
+                                         {" "}
+          {/* Visual context for the dashboard layout 
                 
                 
 
 [Image of a UI screen design for a sports team management dashboard]
 
                 
-                */}
-            </div>
-
-            {/* Modals Integration */}
-            {teamId && (
-                <>
-                    <AddPlayerModal 
-                        isOpen={isAddModalOpen}
-                        onClose={handleCloseModals}
-                        teamId={teamId}
-                        onPlayerAdded={fetchRoster} // Refresh data upon success
-                    />
-
-                    <EditPlayerModal 
-                        isOpen={!!playerToEdit} // True if playerToEdit is not null
-                        onClose={handleCloseModals}
-                        player={playerToEdit}
-                        onPlayerUpdated={fetchRoster} // Refresh roster on success
-                    />
-                </>
-            )}
-        </>
-    );
+                
+                */}
+        </section>
+                    {/* Modals Integration */}           {" "}
+        {teamId && (
+          <>
+                               {" "}
+            <AddPlayerModal
+              isOpen={isAddModalOpen}
+              onClose={handleCloseModals}
+              teamId={teamId}
+              onPlayerAdded={fetchRoster} // Refresh data upon success
+            />
+                               {" "}
+            <EditPlayerModal
+              isOpen={!!playerToEdit} // True if playerToEdit is not null
+              onClose={handleCloseModals}
+              player={playerToEdit}
+              onPlayerUpdated={fetchRoster} // Refresh roster on success
+            />
+                           {" "}
+          </>
+        )}
+               {" "}
+      </>
+    );
 };
