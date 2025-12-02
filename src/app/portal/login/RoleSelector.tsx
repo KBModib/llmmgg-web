@@ -3,8 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 
-// Use the primary green color from your designs
-const primaryGreen = '#3e7c13';
+// Define a more vibrant green and a subtle background pattern
+const primaryGreen = '#4CAF50'; // Vibrant green
+const darkGreen = '#388E3C'; // Darker green for hover
+const lightBgPattern = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 0h-2v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`;
 
 // Define the roles and their links, using a query parameter for the role
 const roles = [
@@ -17,46 +19,49 @@ const roles = [
 export const RoleSelector: React.FC = () => {
     return (
         <div 
-            className="w-full max-w-lg mx-auto md:rounded-lg shadow-2xl overflow-hidden bg-white" 
+            className="min-h-screen flex w-[50%] items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+            style={{ backgroundColor: '#f0f2f5', backgroundImage: lightBgPattern }} // Apply subtle pattern
         >
-            {/* Header Area */}
-            <div className="p-8 sm:p-10 flex flex-col items-center text-center" style={{ backgroundColor: primaryGreen }}>
-                <h1 className="text-3xl font-bold text-white mt-4">Log In</h1>
-                
-                <p className="text-white text-lg font-light mt-2">
-                    Please select your role to proceed to the login form.
-                </p>
-            </div>
-
-            {/* Role Selection Buttons */}
-            <div className="p-8 sm:p-10 space-y-4">
-                {roles.map((role) => (
-                    <Link 
-                        key={role.roleParam}
-                        // Directs to the unified login form, passing the role as a query parameter
-                        href={`/login/form?role=${role.roleParam}`} 
-                        className="w-full block rounded-md py-4 px-4 text-xl font-semibold text-gray-800 shadow-md transition hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex items-center justify-between"
-                        style={{ backgroundColor: 'white', border: `2px solid ${primaryGreen}` }}
-                    >
-                        <div className='text-left'>
-                            <p className="text-xl font-bold text-gray-800">{role.name}</p>
-                        </div>
-                        <svg className="w-6 h-6 text-gray-600 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </Link>
-                ))}
-            </div>
-
-            {/* Registration Link */}
-            <div className="p-4 bg-gray-50 border-t text-center">
-                <p className="text-sm text-gray-600 mb-2">Don’t have an account?</p>
-                <Link 
-                    href="/portal/register" 
-                    className="text-blue-600 font-semibold hover:text-blue-800 transition"
+            <div 
+                className="w-full mx-auto rounded-2xl shadow-2xl overflow-hidden" // More rounded and prominent shadow
+            >
+                {/* Header Area */}
+                <div 
+                    className="p-8 sm:p-10 flex flex-col items-center text-center rounded-t-2xl" 
+                    style={{ backgroundColor: '#3e7c13' }}
                 >
-                    Register Now
-                </Link>
+                    <h1 className="text-4xl font-extrabold text-white mt-4 tracking-tight">Log In</h1> 
+                    
+                    <p className="text-white text-lg font-light mt-2 opacity-90">
+                        Select your role to proceed.
+                    </p>
+                </div>
+
+                {/* Role Selection Buttons */}
+                <div className="p-8 sm:p-10 space-y-5 bg-[#3e7c13]"> {/* Increased spacing and white background */}
+                    {roles.map((role) => (
+                        <Link 
+                            key={role.roleParam}
+                            href={`/portal/login/form?role=${role.roleParam}`} 
+                            className="w-full flex justify-center py-4 px-6 border-2 border-transparent rounded-xl text-2xl font-semibold text-gray-800 shadow-md transition-all duration-200 ease-in-out
+                                       hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-green-400"
+                            style={{ backgroundColor: 'white', color:primaryGreen, borderColor: 'white'}} // White button with green border and text
+                        >
+                            {role.name}
+                        </Link>
+                    ))}
+                </div>
+
+                {/* Registration Link */}
+                <div className="p-6 bg-[#3e7c13] text-center rounded-b-2xl">
+                    <p className="text-sm text-white mb-3">Don’t have an account?</p>
+                    <Link 
+                        href="/portal/register" 
+                        className="text-base font-semibold transition duration-200 ease-in-out text-[#938c13] hover-[#ffd52c]"
+                    >
+                        Register Now
+                    </Link>
+                </div>
             </div>
         </div>
     );
