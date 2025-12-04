@@ -1,8 +1,21 @@
 "use client";
 
-import Image from "next/image"; 
+import Image from "next/image";
+import dynamic from 'next/dynamic';
+
+  const SAMPLE_PDF_URL = '/assets/new rules.pdf';
+
+  const PdfViewer = dynamic(
+  () => import('./components/PdfViewer'),
+  { 
+    loading: () => <p>Loading PDF Viewer...</p>, // Optional: Show a loading state
+    ssr: false // <<< THIS IS THE FIX
+  } 
+);
 
 export default function HomePage() {
+
+
   return (
     <main className="flex flex-col items-center bg-gray-50/0">
       <div className="w-full">
@@ -108,10 +121,16 @@ export default function HomePage() {
             
           </div>
         </div>
-        
+        <div>
+          <PdfViewer fileUrl={SAMPLE_PDF_URL} />
+        </div>
         {/* Placeholder for AuthShowcase component */}
 
       </div>
     </main>
   );
+}
+
+function defaultLayoutPlugin() {
+  throw new Error("Function not implemented.");
 }
