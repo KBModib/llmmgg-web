@@ -77,8 +77,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, stats }) => {
 
         <hr className="mb-10 border-gray-300" />
 
-        {/* 2. Management Action Buttons Grid (2x2 layout) */}
-        <div className="grid grid-cols-2 gap-6">
+        {/* 2. Management Action Buttons Grid (3x2 layout) */}
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
           {/* Row 1 */}
           <Link
             href="/portal/dashboard/admin/tournaments"
@@ -91,6 +91,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, stats }) => {
             className="flex items-center justify-center rounded-lg bg-green-700 p-8 text-lg font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
           >
             Manage Teams
+          </Link>
+          <Link
+            href="/portal/dashboard/admin/users"
+            className="flex items-center justify-center rounded-lg bg-green-700 p-8 text-lg font-semibold text-white shadow-lg transition duration-200 hover:bg-green-800"
+          >
+            Manage Users
           </Link>
 
           {/* Row 2 */}
